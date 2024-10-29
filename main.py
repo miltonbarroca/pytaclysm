@@ -13,8 +13,8 @@ COLORS = {
     'forest_ground_var': libtcodpy.Color(60, 100, 40),
     'cabin_floor': libtcodpy.Color(139, 69, 19),
     'cabin_wall': libtcodpy.Color(139, 69, 19),
-    'tree': libtcodpy.Color(0, 100, 0),
-    'tree_trunk': libtcodpy.Color(101, 67, 33),  # Cor para o tronco da árvore
+    'tree': libtcodpy.Color(123, 63, 0),
+    'tree_trunk': libtcodpy.Color(101, 67, 33),
     'player': libtcodpy.Color(255, 255, 255),
     'zombie': libtcodpy.Color(0, 255, 0),
 }
@@ -76,9 +76,11 @@ class GameMap:
                         self.tiles[x1][y1] = 'cabin_floor'
 
     def is_blocked(self, x, y):
+        # Verifica limites do mapa e se o tile é bloqueado
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
             return True
-        return self.tiles[x][y] in ["tree", "tree_trunk"]
+        # Adiciona cabin_wall como bloqueio, além de tree e tree_trunk
+        return self.tiles[x][y] in ["tree", "tree_trunk", "cabin_wall"]
 
 class Engine:
     def __init__(self):
@@ -138,6 +140,8 @@ class Engine:
                 self.end_player_turn()
             elif event.sym == tcod.event.KeySym.RIGHT:
                 self.player.move(1, 0, self.game_map)
+                self.end_player_turn()
+            elif event.sym == tcod.event.KeySym.PERIOD:
                 self.end_player_turn()
 
     def end_player_turn(self):
