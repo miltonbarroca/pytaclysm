@@ -28,10 +28,16 @@ class Entity:
         self.name = name
         self.blocks = blocks
 
-    def move(self, dx, dy, game_map):
-        if not game_map.is_blocked(self.x + dx, self.y + dy):
+    def move(self, dx, dy, game_map, entities):
+        if not game_map.is_blocked(self.x + dx, self.y + dy) and not self.is_blocked(entities, self.x + dx, self.y + dy):
             self.x += dx
             self.y += dy
+
+    def is_blocked(self, entities, x, y):
+        for entity in entities:
+            if entity.blocks and entity.x == x and entity.y == y:
+                return True
+        return False
 
 class GameMap:
     def __init__(self, width, height):
@@ -130,18 +136,16 @@ class Engine:
     def handle_input(self, event):
         if self.player_turn:
             if event.sym == tcod.event.KeySym.UP:
-                self.player.move(0, -1, self.game_map)
+                self.player.move(0, -1, self.game_map, self.entities)
                 self.end_player_turn()
             elif event.sym == tcod.event.KeySym.DOWN:
-                self.player.move(0, 1, self.game_map)
+                self.player.move(0, 1, self.game_map, self.entities)
                 self.end_player_turn()
             elif event.sym == tcod.event.KeySym.LEFT:
-                self.player.move(-1, 0, self.game_map)
+                self.player.move(-1, 0, self.game_map, self.entities)
                 self.end_player_turn()
             elif event.sym == tcod.event.KeySym.RIGHT:
-                self.player.move(1, 0, self.game_map)
-                self.end_player_turn()
-            elif event.sym == tcod.event.KeySym.PERIOD:
+                self.player.move(1, 0, self.game_map, self.entities)
                 self.end_player_turn()
 
     def end_player_turn(self):
@@ -152,7 +156,7 @@ class Engine:
         for entity in self.entities:
             if entity.name == 'Zumbi':
                 dx, dy = self.random_move()
-                entity.move(dx, dy, self.game_map)
+                entity.move(dx, dy, self.game_map, self.entities)
         self.player_turn = True
 
     def random_move(self):
