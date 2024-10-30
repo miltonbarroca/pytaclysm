@@ -45,7 +45,9 @@ class GameMap:
             'tree_trunk': False,
             'cabin_wall': False,
             'cabin_floor': True,
-            'river': False
+            'river': False,
+            'window': False,
+            'door': True
         }
 
     def initialize_tiles(self):
@@ -76,11 +78,24 @@ class GameMap:
     def make_cabin(self, x, y, width, height):
         for x1 in range(x, x + width):
             for y1 in range(y, y + height):
-                if 0 <= x1 < self.width and 0 <= y1 < self.height:
-                    if x1 == x or x1 == x + width - 1 or y1 == y or y1 == y + height - 1:
-                        self.tiles[x1][y1] = 'cabin_wall'
-                    else:
-                        self.tiles[x1][y1] = 'cabin_floor'
+                # Define paredes externas
+                if x1 == x or x1 == x + width - 1 or y1 == y or y1 == y + height - 1:
+                    self.tiles[x1][y1] = 'cabin_wall'
+                else:
+                    # Define o piso interno
+                    self.tiles[x1][y1] = 'cabin_floor'
+                    
+        # Define a porta no centro da parede frontal (inferior)
+        door_x = x + width // 2
+        door_y = y + height - 1
+        self.tiles[door_x][door_y] = 'door'
+
+        # Define janelas nas paredes laterais
+        window1_x, window1_y = x, y + height // 3
+        window2_x, window2_y = x + width - 1, y + 2 * height // 3
+        self.tiles[window1_x][window1_y] = 'window'
+        self.tiles[window2_x][window2_y] = 'window'
+
 
     def make_river(self, start_x, start_y, length):
         x, y = start_x, start_y
@@ -143,6 +158,10 @@ class Engine:
                     console.print(x, y, 'O', bg=color.COLORS['tree_trunk'])
                 elif tile == "river":
                     console.print(x, y, '~', bg=color.COLORS['river'])
+                elif tile == 'window':
+                    console.print(x, y, '=', fg=color.COLORS['window'])
+                elif tile == 'door':
+                    console.print(x, y, '+', fg=color.COLORS['door'])
                 else:
                     console.print(x, y, ' ', bg=color.COLORS['dark_wall'])
 
