@@ -1,27 +1,13 @@
 import random
 import tcod
 from tcod import libtcodpy
+import color
 
 SCREEN_WIDTH = 80
 SCREEN_HEIGHT = 50
 MAP_WIDTH = 80
 MAP_HEIGHT = 45
 
-COLORS = {
-    'dark_wall': libtcodpy.Color(20, 20, 40),
-    'forest_ground': libtcodpy.Color(34, 139, 34),  
-    'forest_ground_var': libtcodpy.Color(60, 100, 40),
-    'dark_grass': libtcodpy.Color(20, 70, 20),
-    'clearing': libtcodpy.Color(85, 107, 47),
-    'bush': libtcodpy.Color(34, 139, 84),
-    'cabin_floor': libtcodpy.Color(139, 69, 19),
-    'cabin_wall': libtcodpy.Color(139, 69, 19),
-    'tree': libtcodpy.Color(123, 63, 0),
-    'tree_trunk': libtcodpy.Color(101, 67, 33),
-    'river': libtcodpy.Color(0, 0, 255),
-    'player': libtcodpy.Color(255, 255, 255),
-    'cat': libtcodpy.Color(200, 100, 100),
-}
 
 class Entity:
     def __init__(self, x, y, char, color, name, blocks=False):
@@ -49,9 +35,23 @@ class GameMap:
         self.height = height
         self.tiles = self.initialize_tiles()
 
+        self.passable_tiles = {
+            'forest_ground': True,
+            'forest_ground_var': True,
+            'dark_grass': True,
+            'clearing': True,
+            'bush': False,
+            'tree': False,
+            'tree_trunk': False,
+            'cabin_wall': False,
+            'cabin_floor': True,
+            'river': False
+        }
+
     def initialize_tiles(self):
         tiles = [['forest_ground' for y in range(self.height)] for x in range(self.width)]
         return tiles
+
 
     def make_forest(self):
         for x in range(self.width):
@@ -94,7 +94,8 @@ class GameMap:
     def is_blocked(self, x, y):
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
             return True
-        return self.tiles[x][y] in ["tree", "tree_trunk", "cabin_wall", "bush", "river"]
+        tile_type = self.tiles[x][y]
+        return not self.passable_tiles.get(tile_type, False)
 
 class Engine:
     def __init__(self):
@@ -104,9 +105,9 @@ class Engine:
         self.game_map.make_river(10, 5, 30)
         self.game_map.make_cabin(20, 15, 10, 10)
         
-        self.player = Entity(25, 20, '@', COLORS['player'], 'Jogador', blocks=True)
+        self.player = Entity(25, 20, '@', color.COLORS['player'], 'Jogador', blocks=True)
         self.entities = [self.player]
-        self.spawn_cats(3)
+        self.spawn_cats(1)
         
         self.player_turn = True
 
@@ -115,7 +116,7 @@ class Engine:
             x = random.randint(20, 29)
             y = random.randint(15, 24)
             if not self.game_map.is_blocked(x, y):
-                cat = Entity(x, y, 'C', COLORS['cat'], 'Gato', blocks=True)
+                cat = Entity(x, y, 'C', color.COLORS['cat'], 'Gato', blocks=True)
                 self.entities.append(cat)
 
     def render(self, console):
@@ -123,27 +124,27 @@ class Engine:
             for x in range(MAP_WIDTH):
                 tile = self.game_map.tiles[x][y]
                 if tile == "tree":
-                    console.print(x, y, 'o', bg=COLORS['tree'])
+                    console.print(x, y, 'o', bg=color.COLORS['tree'])
                 elif tile == "forest_ground":
-                    console.print(x, y, ' ', bg=COLORS['forest_ground'])
+                    console.print(x, y, ' ', bg=color.COLORS['forest_ground'])
                 elif tile == "forest_ground_var":
-                    console.print(x, y, ' ', bg=COLORS['forest_ground_var'])
+                    console.print(x, y, ' ', bg=color.COLORS['forest_ground_var'])
                 elif tile == "dark_grass":
-                    console.print(x, y, ' ', bg=COLORS['dark_grass'])
+                    console.print(x, y, ' ', bg=color.COLORS['dark_grass'])
                 elif tile == "clearing":
-                    console.print(x, y, ' ', bg=COLORS['clearing'])
+                    console.print(x, y, ' ', bg=color.COLORS['clearing'])
                 elif tile == "bush":
-                    console.print(x, y, '*', bg=COLORS['bush'])
+                    console.print(x, y, '*', bg=color.COLORS['bush'])
                 elif tile == 'cabin_floor':
-                    console.print(x, y, ' ', bg=COLORS['cabin_floor'])
+                    console.print(x, y, ' ', bg=color.COLORS['cabin_floor'])
                 elif tile == 'cabin_wall':
-                    console.print(x, y, '#', bg=COLORS['cabin_wall'])
+                    console.print(x, y, '#', bg=color.COLORS['cabin_wall'])
                 elif tile == 'tree_trunk':
-                    console.print(x, y, 'O', bg=COLORS['tree_trunk'])
+                    console.print(x, y, 'O', bg=color.COLORS['tree_trunk'])
                 elif tile == "river":
-                    console.print(x, y, '~', bg=COLORS['river'])
+                    console.print(x, y, '~', bg=color.COLORS['river'])
                 else:
-                    console.print(x, y, ' ', bg=COLORS['dark_wall'])
+                    console.print(x, y, ' ', bg=color.COLORS['dark_wall'])
 
         for entity in self.entities:
             console.print(entity.x, entity.y, entity.char, fg=entity.color)
@@ -182,14 +183,14 @@ class Engine:
 
 def main():
     tileset = tcod.tileset.load_tilesheet(
-        "dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
+        "tileset/dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
     )
     
     with tcod.context.new_terminal(
         SCREEN_WIDTH,
         SCREEN_HEIGHT,
         tileset=tileset,
-        title="Roguelike - Floresta com Cabana e Rios",
+        title="Pytaclysm",
         vsync=True,
     ) as context:
         console = tcod.console.Console(SCREEN_WIDTH, SCREEN_HEIGHT, order="F")
