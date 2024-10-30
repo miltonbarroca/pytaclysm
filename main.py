@@ -1,7 +1,7 @@
 import random
 import tcod
 from tcod import libtcodpy
-import color
+import tileset.color as color
 
 SCREEN_WIDTH = 80
 SCREEN_HEIGHT = 50
@@ -159,9 +159,9 @@ class Engine:
                 elif tile == "river":
                     console.print(x, y, '~', bg=color.COLORS['river'])
                 elif tile == 'window':
-                    console.print(x, y, '=', fg=color.COLORS['window'])
+                    console.print(x, y, '=', bg=color.COLORS['window'])
                 elif tile == 'door':
-                    console.print(x, y, '+', fg=color.COLORS['door'])
+                    console.print(x, y, '+', bg=color.COLORS['door'])
                 else:
                     console.print(x, y, ' ', bg=color.COLORS['dark_wall'])
 
