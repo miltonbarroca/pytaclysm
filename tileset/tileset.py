@@ -8,6 +8,10 @@ def render(console, game_map, entities):
             tile = game_map.tiles[x][y]
             if tile == "tree":
                 console.print(x, y, 'o', bg=color.COLORS['tree'])
+            elif tile == "door":
+                console.print(x, y, '+', bg=color.COLORS['door'])
+            elif tile == "open_door":
+                console.print(x, y, '/', bg=color.COLORS['open_door'])
             elif tile == "forest_ground":
                 console.print(x, y, ' ', bg=color.COLORS['forest_ground'])
             elif tile == "forest_ground_var":
@@ -28,10 +32,7 @@ def render(console, game_map, entities):
                 console.print(x, y, '~', bg=color.COLORS['river'])
             elif tile == 'window':
                 console.print(x, y, '=', bg=color.COLORS['window'])
-            elif tile == 'door':
-                console.print(x, y, '+', bg=color.COLORS['door'])
-            elif tile == 'open_door':
-                console.print(x, y, '/', bg=color.COLORS['open_door'])
+            
             else:
                 console.print(x, y, ' ', bg=color.COLORS['dark_wall'])
 
