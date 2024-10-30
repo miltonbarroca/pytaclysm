@@ -1,10 +1,11 @@
 import random
 import tcod
+import json
 from tcod import libtcodpy
 import tileset.color as color
-from entities.entity import Player
+from entities.player import Player
 from entities.entity import Cat
-from engine.movement_control import MovementControls
+from engine.controls import MovementControls
 from map.game_map import GameMap
 from engine.constants import *
 
@@ -21,6 +22,11 @@ class Engine:
         self.spawn_cats(1)
         
         self.movement_controls = MovementControls(self.player, self.game_map, self.entities)
+        
+        with open("data/interactions.json") as f:
+            self.interactions = json.load(f)
+        
+        self.player.set_interactions(self.interactions)
         
         self.player_turn = True
 

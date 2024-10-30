@@ -1,0 +1,16 @@
+{
+    "door": {
+        "message": "Você interagiu com a porta!",
+        "action": "open_door"
+    },
+    "window": {
+        "message": "Você olhou pela janela.",
+        "action": "look_out"
+    },
+    "tree": {
+        "message": "É uma árvore. Parece antiga e robusta."
+    },
+    "river": {
+        "message": "A água flui suavemente, você sente uma paz ao olhar."
+    }
+}

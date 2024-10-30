@@ -20,10 +20,6 @@ class Entity:
                 return True
         return False
 
-class Player(Entity):
-    def __init__(self, x, y, char='@', color=None, name='Player'):
-        super().__init__(x, y, char, color, name, blocks=True)
-
 class Cat(Entity):
     def __init__(self, x, y, char='C', color=None, name='Gato'):
         super().__init__(x, y, char, color, name, blocks=True)
