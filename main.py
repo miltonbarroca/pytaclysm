@@ -170,20 +170,28 @@ class Engine:
 
     def handle_input(self, event):
         if self.player_turn:
-            if event.sym == tcod.event.KeySym.UP:
+            # Movimentação para cima, baixo, esquerda e direita
+            if event.sym == tcod.event.KeySym.w:  # Cima
                 self.player.move(0, -1, self.game_map, self.entities)
-                self.end_player_turn()
-            elif event.sym == tcod.event.KeySym.DOWN:
+            elif event.sym == tcod.event.KeySym.s:  # Baixo
                 self.player.move(0, 1, self.game_map, self.entities)
-                self.end_player_turn()
-            elif event.sym == tcod.event.KeySym.LEFT:
+            elif event.sym == tcod.event.KeySym.a:  # Esquerda
                 self.player.move(-1, 0, self.game_map, self.entities)
-                self.end_player_turn()
-            elif event.sym == tcod.event.KeySym.RIGHT:
+            elif event.sym == tcod.event.KeySym.d:  # Direita
                 self.player.move(1, 0, self.game_map, self.entities)
-                self.end_player_turn()
-            elif event.sym == tcod.event.KeySym.PERIOD:
-                self.end_player_turn()
+            
+            # Movimentação diagonal
+            elif event.sym == tcod.event.KeySym.q:  # Cima Esquerda
+                self.player.move(-1, -1, self.game_map, self.entities)
+            elif event.sym == tcod.event.KeySym.e:  # Cima Direita
+                self.player.move(1, -1, self.game_map, self.entities)
+            elif event.sym == tcod.event.KeySym.z:  # Baixo Esquerda
+                self.player.move(-1, 1, self.game_map, self.entities)
+            elif event.sym == tcod.event.KeySym.c:  # Baixo Direita
+                self.player.move(1, 1, self.game_map, self.entities)
+            
+            # Termina o turno do jogador após qualquer movimento
+            self.end_player_turn()
 
     def end_player_turn(self):
         self.player_turn = False
