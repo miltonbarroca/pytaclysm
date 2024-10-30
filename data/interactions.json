@@ -1,16 +1,57 @@
 {
     "door": {
         "message": "Você interagiu com a porta!",
-        "action": "open_door"
+        "action": "open_door",
+        "state": "closed",
+        "is_passable": false
+    },
+    "open_door": {
+        "message": "A porta está aberta.",
+        "is_passable": true
     },
     "window": {
         "message": "Você olhou pela janela.",
-        "action": "look_out"
+        "action": "look_out",
+        "is_passable": false
     },
     "tree": {
-        "message": "É uma árvore. Parece antiga e robusta."
+        "message": "É uma árvore. Parece antiga e robusta.",
+        "is_passable": false
     },
     "river": {
-        "message": "A água flui suavemente, você sente uma paz ao olhar."
+        "message": "A água flui suavemente, você sente uma paz ao olhar.",
+        "is_passable": false
+    },
+    "forest_ground": {
+        "message": "Você pisa no solo da floresta, macio sob seus pés.",
+        "is_passable": true
+    },
+    "forest_ground_var": {
+        "message": "O solo da floresta é variado, com pequenas pedras e raízes.",
+        "is_passable": true
+    },
+    "dark_grass": {
+        "message": "A grama escura cresce ao seu redor, parece densa.",
+        "is_passable": true
+    },
+    "clearing": {
+        "message": "Você está em uma clareira tranquila, o sol brilha aqui.",
+        "is_passable": true
+    },
+    "bush": {
+        "message": "Um arbusto espesso, talvez esconda algo.",
+        "is_passable": false
+    },
+    "tree_trunk": {
+        "message": "Um tronco de árvore robusto, difícil de escalar.",
+        "is_passable": false
+    },
+    "cabin_wall": {
+        "message": "A parede da cabana é sólida e imponente.",
+        "is_passable": false
+    },
+    "cabin_floor": {
+        "message": "O chão da cabana é de madeira, parece confortável.",
+        "is_passable": true
     }
 }

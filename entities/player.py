@@ -21,7 +21,12 @@ class Player(Entity):
                 
                 # Aqui você pode adicionar lógica para ações, por exemplo:
                 if interaction.get("action") == "open_door":
-                    print("A porta se abre.")
+                    if interaction["state"] == "closed":
+                        # Muda o estado da porta para "open" e a torna passável
+                        game_map.tiles[target_x][target_y] = 'open_door'
+                        print("A porta se abre.")
+                    else:
+                        print("A porta já está aberta.")
                 elif interaction.get("action") == "look_out":
                     print("É uma bela paisagem...")
             else:

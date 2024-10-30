@@ -1,5 +1,6 @@
 from tileset.color import COLORS
 import random
+import json
 
 class GameMap:
     def __init__(self, width, height):
@@ -7,20 +8,8 @@ class GameMap:
         self.height = height
         self.tiles = self.initialize_tiles()
 
-        self.passable_tiles = {
-            'forest_ground': True,
-            'forest_ground_var': True,
-            'dark_grass': True,
-            'clearing': True,
-            'bush': False,
-            'tree': False,
-            'tree_trunk': False,
-            'cabin_wall': False,
-            'cabin_floor': True,
-            'river': False,
-            'window': False,
-            'door': True
-        }
+        with open("data/interactions.json") as f:
+            self.interactions = json.load(f)
 
     def initialize_tiles(self):
         tiles = [['forest_ground' for y in range(self.height)] for x in range(self.width)]
@@ -76,4 +65,7 @@ class GameMap:
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
             return True
         tile_type = self.tiles[x][y]
-        return not self.passable_tiles.get(tile_type, False)
+
+        # Verifica a passabilidade no dicionário de interações
+        interaction = self.interactions.get(tile_type, {})
+        return not interaction.get("is_passable", False)

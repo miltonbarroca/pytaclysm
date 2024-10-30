@@ -15,5 +15,6 @@ COLORS = {
     'player': libtcodpy.Color(255, 255, 255),
     'cat': libtcodpy.Color(200, 100, 100),
     'window': libtcodpy.Color(135, 206, 250),
-    'door': libtcodpy.Color(160, 82, 45)
+    'door': libtcodpy.Color(160, 82, 45),
+    'open_door': libtcodpy.Color(160, 82, 45)
 }
