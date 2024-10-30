@@ -1,4 +1,4 @@
-from entities.entity import Player
+from entities.entity import *
 import tcod
 
 class MovementControls:
