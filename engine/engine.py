@@ -23,7 +23,7 @@ class Engine:
         
         self.movement_controls = MovementControls(self.player, self.game_map, self.entities)
         
-        with open("data/interactions.json") as f:
+        with open("data/tiles.json") as f:
             self.interactions = json.load(f)
         
         self.player.set_interactions(self.interactions)

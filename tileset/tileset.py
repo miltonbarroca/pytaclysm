@@ -1,40 +1,23 @@
+import json
 import tcod
 import tileset.color as color
+
+# Carregar dados dos tiles do JSON
+with open('data/tiles.json', 'r', encoding='utf-8') as file:
+    tiles_data = json.load(file)
 
 def render(console, game_map, entities):
     # Renderizar o mapa
     for y in range(game_map.height):
         for x in range(game_map.width):
             tile = game_map.tiles[x][y]
-            if tile == "tree":
-                console.print(x, y, 'o', bg=color.COLORS['tree'])
-            elif tile == "door":
-                console.print(x, y, '+', bg=color.COLORS['door'])
-            elif tile == "open_door":
-                console.print(x, y, '/', bg=color.COLORS['open_door'])
-            elif tile == "forest_ground":
-                console.print(x, y, ' ', bg=color.COLORS['forest_ground'])
-            elif tile == "forest_ground_var":
-                console.print(x, y, ' ', bg=color.COLORS['forest_ground_var'])
-            elif tile == "dark_grass":
-                console.print(x, y, ' ', bg=color.COLORS['dark_grass'])
-            elif tile == "clearing":
-                console.print(x, y, ' ', bg=color.COLORS['clearing'])
-            elif tile == "bush":
-                console.print(x, y, '*', bg=color.COLORS['bush'])
-            elif tile == 'cabin_floor':
-                console.print(x, y, ' ', bg=color.COLORS['cabin_floor'])
-            elif tile == 'cabin_wall':
-                console.print(x, y, '#', bg=color.COLORS['cabin_wall'])
-            elif tile == 'tree_trunk':
-                console.print(x, y, 'O', bg=color.COLORS['tree_trunk'])
-            elif tile == "river":
-                console.print(x, y, '~', bg=color.COLORS['river'])
-            elif tile == 'window':
-                console.print(x, y, '=', bg=color.COLORS['window'])
-            
+            if tile in tiles_data:
+                tile_info = tiles_data[tile]
+                char = tile_info.get("char", " ")
+                tile_color = color.COLORS.get(tile_info["color"], color.COLORS["dark_wall"])
+                console.print(x, y, char, bg=tile_color)
             else:
-                console.print(x, y, ' ', bg=color.COLORS['dark_wall'])
+                console.print(x, y, ' ', bg=color.COLORS["dark_wall"])
 
     # Renderizar as entidades
     for entity in entities:

@@ -8,7 +8,7 @@ class GameMap:
         self.height = height
         self.tiles = self.initialize_tiles()
 
-        with open("data/interactions.json") as f:
+        with open("data/tiles.json") as f:
             self.interactions = json.load(f)
 
     def initialize_tiles(self):
@@ -68,4 +68,4 @@ class GameMap:
 
         # Verifica a passabilidade no dicionário de interações
         interaction = self.interactions.get(tile_type, {})
-        return not interaction.get("is_passable", False)
+        return not interaction.get("passable", False)

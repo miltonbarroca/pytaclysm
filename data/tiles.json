@@ -3,57 +3,83 @@
         "message": "Você interagiu com a porta!",
         "action": "toggle_door",
         "state": "closed",
-        "is_passable": false
+        "passable": false,
+        "color": "door",
+        "char": "+"
     },
     "open_door": {
         "message": "A porta está aberta.",
         "action": "toggle_door",
-        "state": "open", 
-        "is_passable": true
+        "state": "open",
+        "passable": true,
+        "color": "open_door",
+        "char": "/"
     },
     "window": {
         "message": "Você olhou pela janela.",
         "action": "look_out",
-        "is_passable": false
+        "passable": false,
+        "color": "window",
+        "char": "="
     },
     "tree": {
         "message": "É uma árvore. Parece antiga e robusta.",
-        "is_passable": false
+        "passable": false,
+        "color": "tree",
+        "char": "o"
     },
     "river": {
         "message": "A água flui suavemente, você sente uma paz ao olhar.",
-        "is_passable": false
+        "passable": false,
+        "color": "river",
+        "char": "~"
     },
     "forest_ground": {
         "message": "É um solo de floresta.",
-        "is_passable": true
+        "passable": true,
+        "color": "forest_ground",
+        "char": " "
     },
     "forest_ground_var": {
         "message": "É um solo de floresta variado.",
-        "is_passable": true
+        "passable": true,
+        "color": "forest_ground_var",
+        "char": " "
     },
     "dark_grass": {
         "message": "É uma grama escura.",
-        "is_passable": true
+        "passable": true,
+        "color": "dark_grass",
+        "char": " "
     },
     "clearing": {
         "message": "É uma clareira.",
-        "is_passable": true
+        "passable": true,
+        "color": "clearing",
+        "char": " "
     },
     "bush": {
         "message": "É um arbusto espesso.",
-        "is_passable": false
+        "passable": false,
+        "color": "bush",
+        "char": "*"
     },
     "tree_trunk": {
         "message": "É o tronco de uma árvore.",
-        "is_passable": false
+        "passable": false,
+        "color": "tree_trunk",
+        "char": "O"
     },
     "cabin_wall": {
         "message": "É a parede de uma cabana.",
-        "is_passable": false
+        "passable": false,
+        "color": "cabin_wall",
+        "char": "#"
     },
     "cabin_floor": {
         "message": "É o chão da cabana.",
-        "is_passable": true
+        "passable": true,
+        "color": "cabin_floor",
+        "char": " "
     }
 }
