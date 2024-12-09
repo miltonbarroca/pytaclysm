@@ -67,32 +67,23 @@ class Engine:
 
     def render_hud(self, console: tcod.console.Console):
         """Renderiza informações do personagem no HUD."""
-        hud_y_start = SCREEN_HEIGHT  # O HUD começa logo após a área do mapa
-        hud_height = NEW_HEIGHT - SCREEN_HEIGHT
+        hud_x_start = SCREEN_WIDTH  # O HUD começa logo após a área do mapa
+        hud_width = HUD             # Largura da HUD
 
         # Desenha um fundo preto para o HUD
-        console.draw_rect(
-            0, hud_y_start, SCREEN_WIDTH, hud_height,
-            ord(" "), fg=(255, 255, 255), bg=(0, 0, 0)
-        )
+        for y in range(SCREEN_HEIGHT):
+            for x in range(hud_x_start, hud_x_start + hud_width):
+                console.rgb[x, y] = (ord(" "), color.COLORS['black'], color.COLORS['black'])
 
         # Exibe informações do personagem
-        console.print(1, hud_y_start + 1, f"Vida: {self.player_health}/100", fg=(255, 0, 0))
-        console.print(1, hud_y_start + 2, f"Stamina: {self.player_stamina}/100", fg=(0, 255, 0))
-        console.print(1, hud_y_start + 4, "Pressione H para abrir o inventario.", fg=(255, 255, 255))
+        console.print(hud_x_start + 1, 1, f"Vida: {self.player_health}/100", fg=(255, 0, 0))
+        console.print(hud_x_start + 1, 4, "Pressione H para abrir o inventário.", fg=(255, 255, 255))
 
         # Exemplo de barra de vida
         self.render_bar(
-            console, x=20, y=hud_y_start + 1, width=30,
+            console, x=20, y=1, width=30,
             current_value=self.player_health, max_value=100,
             fg_color=(255, 0, 0), bg_color=(50, 50, 50)
-        )
-
-        # Exemplo de barra de stamina
-        self.render_bar(
-            console, x=20, y=hud_y_start + 2, width=30,
-            current_value=self.player_stamina, max_value=100,
-            fg_color=(0, 255, 0), bg_color=(50, 50, 50)
         )
 
     def render_bar(self, console, x, y, width, current_value, max_value, fg_color, bg_color):

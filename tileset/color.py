@@ -16,5 +16,7 @@ COLORS = {
     'cat': libtcodpy.Color(200, 100, 100),
     'window': libtcodpy.Color(135, 206, 250),
     'door': libtcodpy.Color(160, 82, 45),
-    'open_door': libtcodpy.Color(160, 82, 45)
+    'open_door': libtcodpy.Color(160, 82, 45),
+    #separar cor de objetos de cores padrao!!!
+    'black': libtcodpy.Color(0, 0, 0),
 }
