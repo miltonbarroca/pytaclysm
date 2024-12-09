@@ -30,6 +30,10 @@ class Engine:
         
         self.player_turn = True
 
+        # Atributos para o HUD
+        self.player_health = 100  # Vida do jogador
+        self.player_stamina = 50  # Stamina do jogador
+
     def spawn_cats(self, number):
         for _ in range(number):
             x = random.randint(20, 29)
@@ -55,4 +59,45 @@ class Engine:
         self.player_turn = True
 
     def render(self, console):
+        # Renderiza o mapa e as entidades
         render(console, self.game_map, self.entities)
+        
+        # Renderiza o HUD
+        self.render_hud(console)
+
+    def render_hud(self, console: tcod.console.Console):
+        """Renderiza informações do personagem no HUD."""
+        hud_y_start = SCREEN_HEIGHT  # O HUD começa logo após a área do mapa
+        hud_height = NEW_HEIGHT - SCREEN_HEIGHT
+
+        # Desenha um fundo preto para o HUD
+        console.draw_rect(
+            0, hud_y_start, SCREEN_WIDTH, hud_height,
+            ord(" "), fg=(255, 255, 255), bg=(0, 0, 0)
+        )
+
+        # Exibe informações do personagem
+        console.print(1, hud_y_start + 1, f"Vida: {self.player_health}/100", fg=(255, 0, 0))
+        console.print(1, hud_y_start + 2, f"Stamina: {self.player_stamina}/100", fg=(0, 255, 0))
+        console.print(1, hud_y_start + 4, "Pressione H para abrir o inventario.", fg=(255, 255, 255))
+
+        # Exemplo de barra de vida
+        self.render_bar(
+            console, x=20, y=hud_y_start + 1, width=30,
+            current_value=self.player_health, max_value=100,
+            fg_color=(255, 0, 0), bg_color=(50, 50, 50)
+        )
+
+        # Exemplo de barra de stamina
+        self.render_bar(
+            console, x=20, y=hud_y_start + 2, width=30,
+            current_value=self.player_stamina, max_value=100,
+            fg_color=(0, 255, 0), bg_color=(50, 50, 50)
+        )
+
+    def render_bar(self, console, x, y, width, current_value, max_value, fg_color, bg_color):
+        """Renderiza uma barra horizontal para status como vida ou stamina."""
+        bar_width = int((current_value / max_value) * width)
+        console.draw_rect(x, y, width, 1, ord(" "), bg=bg_color)
+        if bar_width > 0:
+            console.draw_rect(x, y, bar_width, 1, ord(" "), bg=fg_color)
