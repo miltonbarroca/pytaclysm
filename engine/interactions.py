@@ -25,11 +25,19 @@ def handle_interaction(player, dx, dy, game_map):
             interaction = player.interactions[tile]
             print(interaction["message"])
 
-            # Gerencia ações específicas
-            action = interaction.get("action")
-            if action == "toggle_door":
-                toggle_door(game_map, target_x, target_y, interaction)
-            elif action == "look_out":
-                print("E uma bela paisagem...")
+            # Alternar o estado da porta
+            if interaction.get("action") == "toggle_door":
+                if tile == "door" and interaction.get("state") == "closed":
+                    # Abrir a porta
+                    game_map.tiles[target_x][target_y] = "open_door"
+                    player.interactions["open_door"]["state"] = "open"
+                    print("A porta se abre.")
+                elif tile == "open_door" and interaction.get("state") == "open":
+                    # Fechar a porta
+                    game_map.tiles[target_x][target_y] = "door"
+                    player.interactions["door"]["state"] = "closed"
+                    print("Você fechou a porta.")
+            elif interaction.get("action") == "look_out":
+                print("É uma bela paisagem...")
         else:
-            print("Nao ha nada para interagir nessa direcao.")
+            print("Não há nada para interagir nessa direção.")
