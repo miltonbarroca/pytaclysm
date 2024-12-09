@@ -9,8 +9,8 @@ def main():
     
     # Ajustamos a largura total para incluir a HUD na direita
     with tcod.context.new_terminal(
-        SCREEN_WIDTH + HUD,  # Adicionamos a largura da HUD
-        SCREEN_HEIGHT,       # Mantemos a altura padrão
+        SCREEN_WIDTH + HUD,
+        SCREEN_HEIGHT,  
         tileset=tileset,
         title="Pytaclysm",
         vsync=True,
