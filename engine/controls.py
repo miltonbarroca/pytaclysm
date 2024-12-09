@@ -6,7 +6,7 @@ class MovementControls:
         self.player = player
         self.game_map = game_map
         self.entities = entities
-        self.interact_mode = False  # Estado de "modo de interação"
+        self.interact_mode = False
 
     def handle_input(self, event):
         """Handles player movement input events and interaction"""

@@ -1,6 +1,6 @@
 {
     "door": {
-        "message": "Você interagiu com a porta!",
+        "message": "Voce interagiu com a porta!",
         "action": "toggle_door",
         "state": "closed",
         "passable": false,
@@ -8,7 +8,7 @@
         "char": "+"
     },
     "open_door": {
-        "message": "A porta está aberta.",
+        "message": "A porta esta aberta.",
         "action": "toggle_door",
         "state": "open",
         "passable": true,
@@ -16,68 +16,68 @@
         "char": "/"
     },
     "window": {
-        "message": "Você olhou pela janela.",
+        "message": "Voce olhou pela janela.",
         "action": "look_out",
         "passable": false,
         "color": "window",
         "char": "="
     },
     "tree": {
-        "message": "É uma árvore. Parece antiga e robusta.",
+        "message": "E uma arvore. Parece antiga e robusta.",
         "passable": false,
         "color": "tree",
         "char": "o"
     },
     "river": {
-        "message": "A água flui suavemente, você sente uma paz ao olhar.",
+        "message": "A agua flui suavemente, voce sente uma paz ao olhar.",
         "passable": false,
         "color": "river",
         "char": "~"
     },
     "forest_ground": {
-        "message": "É um solo de floresta.",
+        "message": "E um solo de floresta.",
         "passable": true,
         "color": "forest_ground",
         "char": " "
     },
     "forest_ground_var": {
-        "message": "É um solo de floresta variado.",
+        "message": "E um solo de floresta variado.",
         "passable": true,
         "color": "forest_ground_var",
         "char": " "
     },
     "dark_grass": {
-        "message": "É uma grama escura.",
+        "message": "E uma grama escura.",
         "passable": true,
         "color": "dark_grass",
         "char": " "
     },
     "clearing": {
-        "message": "É uma clareira.",
+        "message": "E uma clareira.",
         "passable": true,
         "color": "clearing",
         "char": " "
     },
     "bush": {
-        "message": "É um arbusto espesso.",
+        "message": "E um arbusto espesso.",
         "passable": false,
         "color": "bush",
         "char": "*"
     },
     "tree_trunk": {
-        "message": "É o tronco de uma árvore.",
+        "message": "E o tronco de uma arvore.",
         "passable": false,
         "color": "tree_trunk",
         "char": "O"
     },
     "cabin_wall": {
-        "message": "É a parede de uma cabana.",
+        "message": "E a parede de uma cabana.",
         "passable": false,
         "color": "cabin_wall",
         "char": "#"
     },
     "cabin_floor": {
-        "message": "É o chão da cabana.",
+        "message": "E o chao da cabana.",
         "passable": true,
         "color": "cabin_floor",
         "char": " "
